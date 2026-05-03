@@ -1,0 +1,62 @@
+# ===== Node / 前端 =====
+node_modules/
+dist/
+build/
+.next/
+.nuxt/
+.cache/
+.parcel-cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===== Python / 后端 =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.coverage
+htmlcov/
+
+# ===== 环境变量 / 密钥 =====
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+
+# ===== IDE / 编辑器 =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ===== OS =====
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ===== 数据库 / 临时文件 =====
+*.sqlite
+*.sqlite3
+*.db
+tmp/
+temp/
+
+# ===== 部署 =====
+.vercel
+.netlify
