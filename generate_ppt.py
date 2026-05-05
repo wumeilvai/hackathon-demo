@@ -1,41 +1,83 @@
 from pptx import Presentation
 from pptx.util import Inches, Pt
+from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN
 
 def create_ppt():
     prs = Presentation()
     
-    # 定义一些辅助函数
+    # 颜色定义
+    BG_COLOR = RGBColor(12, 12, 20)       # 类似网页深色背景 #0c0c14
+    TITLE_COLOR = RGBColor(196, 149, 106) # 金色强调 #c4956a
+    TEXT_COLOR = RGBColor(232, 228, 223)  # 米白色正文 #e8e4df
+    ACCENT_COLOR = RGBColor(122, 184, 160) # 绿色强调 #7ab8a0
+
+    def apply_background(slide):
+        background = slide.background
+        fill = background.fill
+        fill.solid()
+        fill.fore_color.rgb = BG_COLOR
+
+    def style_text_frame(tf, is_title=False):
+        for paragraph in tf.paragraphs:
+            for run in paragraph.runs:
+                if is_title:
+                    run.font.color.rgb = TITLE_COLOR
+                    run.font.bold = True
+                else:
+                    run.font.color.rgb = TEXT_COLOR
+
     def add_title_slide(title, subtitle):
         slide_layout = prs.slide_layouts[0]
         slide = prs.slides.add_slide(slide_layout)
+        apply_background(slide)
+        
         title_box = slide.shapes.title
         subtitle_box = slide.placeholders[1]
         
         title_box.text = title
         subtitle_box.text = subtitle
         
+        style_text_frame(title_box.text_frame, is_title=True)
+        style_text_frame(subtitle_box.text_frame, is_title=False)
+        
+        # 特殊调整副标题颜色
+        for paragraph in subtitle_box.text_frame.paragraphs:
+            for run in paragraph.runs:
+                run.font.color.rgb = ACCENT_COLOR
+
     def add_bullet_slide(title, content_lines):
         slide_layout = prs.slide_layouts[1]
         slide = prs.slides.add_slide(slide_layout)
+        apply_background(slide)
+        
         title_box = slide.shapes.title
         body_box = slide.placeholders[1]
         
         title_box.text = title
-        tf = body_box.text_frame
+        style_text_frame(title_box.text_frame, is_title=True)
         
+        tf = body_box.text_frame
         for i, line in enumerate(content_lines):
             if i == 0:
                 p = tf.paragraphs[0]
             else:
                 p = tf.add_paragraph()
-            p.text = line
+                
             p.level = 0
+            # 简单解析层级
             if line.startswith("  -"):
                 p.level = 1
                 p.text = line[3:].strip()
             elif line.startswith("- "):
                 p.text = line[2:].strip()
+            else:
+                p.text = line
+
+            # 设置字体颜色
+            for run in p.runs:
+                run.font.color.rgb = TEXT_COLOR
+                run.font.size = Pt(24) if p.level == 0 else Pt(20)
 
     # Slide 1
     add_title_slide("探索之书 (The Book of Exploration)", "在当下，看见最深处的自己\n\n意料之外，情理之中 —— 你的两分钟身心重置指南")
@@ -86,8 +128,8 @@ def create_ppt():
     # Slide 8
     add_title_slide("谢谢大家！", "翻开探索之书，遇见当下的自己。")
 
-    prs.save('docs/探索之书_路演.pptx')
-    print("PPTX generated successfully!")
+    prs.save('docs/探索之书_路演_深色版.pptx')
+    print("Dark theme PPTX generated successfully!")
 
 if __name__ == '__main__':
     create_ppt()
