@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>探索之书 — 意料之外，情理之中</title>
+  <meta name="description" content="两分钟微行动，帮你化解生活中的小困扰。融合东方智慧与现代科学的探索之书。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- 粒子背景 -->
+    <canvas id="particles"></canvas>
+
+    <!-- 主容器 -->
+    <main id="main" class="container">
+
+      <!-- ===== 1. Welcome 欢迎页 ===== -->
+      <section id="view-welcome" class="view active">
+        <div class="welcome-content">
+          <div class="book-icon">
+            <span class="book-glow"></span>
+            <span class="book-emoji">📖</span>
+          </div>
+          <h1 class="title">探索之书</h1>
+          <p class="subtitle">意料之外，情理之中</p>
+          <button id="btn-open" class="btn-primary">
+            <span>翻开这本书</span>
+            <span class="btn-shimmer"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===== 2. Asking 提问页 ===== -->
+      <section id="view-asking" class="view">
+        <div class="asking-content">
+          <p class="asking-label">说说你现在遇到了什么？</p>
+          <div class="input-wrapper">
+            <textarea id="input-question" placeholder="比如：我睡不着，脑子里很多想法停不下来..." rows="3" maxlength="500"></textarea>
+            <span id="char-count" class="char-count">0/500</span>
+          </div>
+          <button id="btn-ask" class="btn-primary" disabled>
+            <span>翻一页看看</span>
+            <span class="btn-shimmer"></span>
+          </button>
+          <div class="examples">
+            <p class="examples-label">或者试试这些：</p>
+            <div class="example-chips">
+              <button class="chip" data-q="我睡不着，脑子里停不下来">😴 睡不着</button>
+              <button class="chip" data-q="马上要开会汇报了，好紧张">😰 好紧张</button>
+              <button class="chip" data-q="和朋友吵架了，心里堵得慌">😤 心里堵</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 3. Loading 等待页 ===== -->
+      <section id="view-loading" class="view">
+        <div class="loading-content">
+          <div class="book-flip">
+            <div class="page page-1"></div>
+            <div class="page page-2"></div>
+            <div class="page page-3"></div>
+          </div>
+          <p class="loading-text">探索之书正在为你翻阅<span class="dots">...</span></p>
+        </div>
+      </section>
+
+      <!-- ===== 4. Suggestions 建议页 ===== -->
+      <section id="view-suggestions" class="view">
+        <div class="suggestions-content">
+          <p class="suggestions-label">探索之书为你翻到了这一页——</p>
+          <p class="suggestions-hint">选一个，两分钟试试看 ✨</p>
+          <div id="cards" class="cards"></div>
+          <button id="btn-back-ask" class="btn-secondary">换个问题</button>
+        </div>
+      </section>
+
+      <!-- ===== 5. Reveal 揭示页 ===== -->
+      <section id="view-reveal" class="view">
+        <div class="reveal-content">
+          <div id="reveal-card" class="reveal-card"></div>
+          <div id="science-toggle" class="science-toggle">
+            <button id="btn-science" class="btn-ghost">
+              <span class="science-icon">🔬</span> 为什么这样做有用？
+            </button>
+          </div>
+          <div id="science-panel" class="science-panel collapsed">
+            <div id="science-content" class="science-content"></div>
+          </div>
+          <button id="btn-again" class="btn-primary">
+            <span>再问一个</span>
+            <span class="btn-shimmer"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===== 6. Safety 安全拦截页 ===== -->
+      <section id="view-safety" class="view">
+        <div class="safety-content">
+          <div class="safety-icon">💚</div>
+          <p id="safety-message" class="safety-message"></p>
+          <button id="btn-safety-back" class="btn-secondary">返回</button>
+        </div>
+      </section>
+
+      <!-- ===== 7. Error 错误页 ===== -->
+      <section id="view-error" class="view">
+        <div class="error-content">
+          <div class="error-icon">📖</div>
+          <p id="error-message" class="error-message"></p>
+          <button id="btn-error-retry" class="btn-primary">
+            <span>再试一次</span>
+            <span class="btn-shimmer"></span>
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
