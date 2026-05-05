@@ -77,3 +77,5 @@ app.post('/api/explore', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🔮 探索之书后端已启动: http://localhost:${PORT}`);
 });
+
+export default app;
